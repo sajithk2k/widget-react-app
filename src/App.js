@@ -2,7 +2,6 @@ import './App.css';
 import PincodeBox from './components/pincodebox/pincodebox';
 import Content from './components/content/content';
 import React, { Component } from 'react';
-import axios from 'axios';
 class App extends Component {
   constructor(props){
     super(props);
@@ -18,23 +17,19 @@ class App extends Component {
   //executes after components are mounted
     componentDidMount(){
       let self = this;
-      return axios.get('https://flipkart-page-api.now.sh')
-      .then(function (response) {
-          // handle success
-          console.log("Printing resposne.data");
-          console.log(response.data);
-          self.setState({slots: response.data});
-          let temp =[];
-          self.getAllWidgets(temp,response.data,"100%");
-          self.setState({widgets:temp});
-      })
-      .catch(function (error) {
-          // handle error
-          console.log(error);
-      })
-      .then(function () {
-          // always executed
-      });
+  fetch('https://flipkart-page-api.now.sh')
+  .then(response => response.json())
+  .then(function(data){
+    self.setState({slots:data});
+    let temp = [];
+    self.getAllWidgets(temp,data,"100%");
+    self.setState({widgets:temp});
+})
+  .catch(error => {
+    console.error("Error: " + error)
+  });
+  //initialize sessionStorage
+  if(!sessionStorage.getItem("selectedimgs"))sessionStorage.setItem("selectedimgs",JSON.stringify([]));
   }
 
   //checks if an object is a container or widget
@@ -47,9 +42,11 @@ class App extends Component {
       for(let i=0;i<slots.length;i++){
           let temp = slots[i].grow;
           temp = Number(temp.slice(0,-1));
-          temp = (temp/100) * Number(parentGrow.slice(0,-1)) +" ";
+          temp = (temp/100) * Number(parentGrow.slice(0,-1)) +"%";
           slots[i].grow = temp;
-          if(this.checkIfContainer(slots[i]))this.getAllWidgets(widgets,slots[i].children,slots[i].grow);
+          if(this.checkIfContainer(slots[i])){
+            this.getAllWidgets(widgets,slots[i].children,slots[i].grow);
+          }
           else {
             widgets.push(slots[i]);
           }
@@ -97,7 +94,7 @@ class App extends Component {
 
   render() { 
     if(this.state.slots.length === 0){return null;}
-    return ( <div>
+    return ( <div style={{height:"100%"}}>
              <PincodeBox getPincode ={this.handlePincode}/>
               <Content widgets = {this.state.widgets}/>
               </div> 

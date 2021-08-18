@@ -8,7 +8,7 @@ class Content extends Component {
             widgets:props.widgets
         }
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
          console.log('updated Props',this.props);
             this.setState({
