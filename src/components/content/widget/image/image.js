@@ -10,7 +10,7 @@ class Image extends Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-         console.log('updated Props',this.props);
+        //  console.log('updated Props',this.props);
             this.setState({
                 imgData: this.props.imgData
             })
@@ -25,8 +25,8 @@ class Image extends Component {
     }
     render() { 
         let selected = (sessionStorage.getItem(this.state.imgData.id) === "true");
-        console.log("Showing selected value" + selected);
-        console.log(this.props.imgSize);
+        // console.log("Showing selected value" + selected);
+        // console.log(this.props.imgSize);
             return (
                     <div className="imgdiv" style = {{width: this.props.imgSize}}> 
                         <img className={selected?"imgborder":""} src = {this.state.imgData.imageUrl} onClick = {this.imageClicked.bind(this)}></img>

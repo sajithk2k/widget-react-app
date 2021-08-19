@@ -10,7 +10,7 @@ class Widget extends Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-         console.log('updated Props',this.props);
+        //  console.log('updated Props',this.props);
             this.setState({
                 widgetData: this.props.widgetData
             })

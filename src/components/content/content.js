@@ -1,31 +1,46 @@
 import React, { Component } from 'react';
 import Widget from './widget/widget';
 import './content.css'
-class Content extends Component {
+class Tree extends Component {
     constructor(props){
         super(props);
         this.state={
-            widgets:props.widgets
+            data:props.slots
         }
     }
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-         console.log('updated Props',this.props);
+        //  console.log('updated Props',this.props);
             this.setState({
-                widgets: this.props.widgets
+                data: this.props.slots
             })
         }
     }
     render() { 
-        if(this.state.widgets.length === 0 ){return null;}
+        // console.log("Inside tree component");
+        // console.log(this.state.data);
+        if(this.state.data.length === 0)return(null);
         return (
-            <div id="widget-div">
-                {
-                    this.state.widgets.map((item,i) => <Widget key={i} widgetData = {item}/>)
-                }
-            </div>
+                this.state.data.map((tree) => (
+                    <TreeNode node={tree}  />
+                ))
             );
     }
 }
- 
-export default Content;
+const TreeNode = ({ node }) => {
+    // console.log("Printing a node");
+    // console.log(node);
+    const hasChild = node.children ? true : false;
+    if(hasChild){
+        return (
+            <div id="container" style ={{width:node.grow}}>
+                 <Tree slots ={node.children}/>
+            </div>
+                );
+    }
+    return (
+            <Widget widgetData = {node}/>
+    );
+  };
+  
+export default Tree;

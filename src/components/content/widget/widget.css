@@ -1,7 +1,6 @@
 #widget {
   height: 200px;
   display: flex;
-  padding-top: 20px;
-  float: none;
+  /* padding-top: 20px; */
   justify-content: space-between;
 }
