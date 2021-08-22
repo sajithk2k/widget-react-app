@@ -10,7 +10,7 @@ class Widget extends Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps !== this.props) {
-         console.log('updated Props',this.props);
+        //  console.log('updated Props',this.props);
             this.setState({
                 widgetData: this.props.widgetData
             })
@@ -18,7 +18,7 @@ class Widget extends Component {
     }
     render() { 
         var c = this.state.widgetData.imageCount;
-        return ( <div id="widget" style = {{width:this.state.widgetData.grow}}> 
+        return ( <div className="widget" style = {{width:this.state.widgetData.grow}}> 
                     {
                         this.state.widgetData.assets.map(function(item,i){
                             if(i<c)return <Image key={i} imgData={item} imgSize = {(100/c)+"%"}/>
