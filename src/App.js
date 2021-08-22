@@ -84,7 +84,7 @@ class App extends Component {
     }
     return ( <div style={{height:"100%"}}>
              <PincodeBox getPincode ={this.handlePincode}/>
-             <div id ="widget-div">
+             <div className ="widget-div">
                 <Tree slots = {this.state.slots}/>
              </div>
               </div> 

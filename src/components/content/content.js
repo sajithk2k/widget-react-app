@@ -33,7 +33,7 @@ const TreeNode = ({ node }) => {
     const hasChild = node.children ? true : false;
     if(hasChild){
         return (
-            <div id="container" style ={{width:node.grow}}>
+            <div className="container" style ={{width:node.grow}}>
                  <Tree slots ={node.children}/>
             </div>
                 );
